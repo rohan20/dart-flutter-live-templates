@@ -1,23 +1,44 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-class $FEATURE_NAME$Bloc extends Bloc<$FEATURE_NAME$Event, $FEATURE_NAME$State> {
-  $FEATURE_NAME$Bloc() : super($FEATURE_NAME$State.initial());
+class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
+  ConnectivityBloc() : super(ConnectivityState.initial());
 
   @override
-  Stream<$FEATURE_NAME$State> mapEventToState($FEATURE_NAME$Event event,) async* {
-    // TODO: implement mapEventToState
+  Stream<ConnectivityState> mapEventToState(ConnectivityEvent event) async* {
+    if (event is AppLaunchedConnectivityEvent) {
+        
+    }
   }
 }
 
-@immutable
-abstract class $FEATURE_NAME$Event {}
+abstract class ConnectivityEvent {}
 
-class $FEATURE_NAME$PageCreatedEvent extends $FEATURE_NAME$Event {}
+class AppLaunchedConnectivityEvent extends ConnectivityEvent {}
 
 @immutable
-class $FEATURE_NAME$State {
-  $FEATURE_NAME$State.initial();
+class ConnectivityState {
+  final bool isLoading;
+  final bool isError;
+
+  const ConnectivityState._({
+    this.isLoading = false,
+    this.isError = false,
+  });
+
+  const ConnectivityState.initial()
+      : this._(
+          isLoading: true,
+          isError: false,
+        );
+
+  ConnectivityState copyWith({
+    bool? isLoading,
+    bool? isError,
+  }) {
+    return ConnectivityState._(
+      isLoading: isLoading ?? this.isLoading,
+      isError: isError ?? this.isError,
+    );
+  }
 }
