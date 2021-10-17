@@ -1,30 +1,46 @@
 import 'package:fantasypl/core/navigation/navigation_bloc.dart';
-import 'package:fantasypl/core/ui/app_bar/core_app_bar.dart';
 import 'package:fantasypl/core/ui/text/core_text.dart';
+import 'package:fantasypl/features/auth/presentation/bloc/login_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class $PAGE_NAME$Page extends StatelessWidget {
+class $NAME$Page extends StatelessWidget {
+  static final pageKey = ValueKey("$$$NAME$Page");
+
   @override
-  Key? get key => ValueKey("$$$PAGE_NAME$Page");
+  Key? get key => $NAME$Page.pageKey;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) {
-        return $BLOC_NAME$Bloc();
-      },
-      child: Scaffold(
-        appBar: CoreAppBar(titleText: "$APP_BAR_TITLE$"),
-        body: BlocBuilder<$BLOC_NAME$Bloc, $BLOC_NAME$State>(
-          builder: (context, $BLOC_NAME$State state) {
-            if (state.isLoading) {
-              return Center(child: CircularProgressIndicator());
-            } else if (state.isError) {
-              return Center(child: CoreText.titleSm("Error"));
-            }
+    return BlocProvider<$NAME$Bloc>(
+      create: (context) => $NAME$Bloc(),
+      child: _$NAME$PageContent(),
+    );
+  }
+}
 
-            return Container(color: Colors.yellow);
-          },
+class _$NAME$PageContent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            AppBar(),
+            Expanded(
+              child: BlocBuilder<$NAME$Bloc, $NAME$State>(
+                builder: (context, $NAME$State state) {
+                  if (state.isLoading) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (state.isError) {
+                    return Center(child: CoreText.titleSm("Error"));
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
